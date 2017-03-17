@@ -3,9 +3,12 @@
   h1 Icons
     .icons-container.flex.center
       i.fa.fa-github-square
-      i.fa.fa-linkedin-square.secondary
-      i.fa.fa-facebook-square.secondary.lighten
-      i.fa.fa-instagram.secondary.tint
+      i.fa.fa-gitlab.white-text
+      i.fa.fa-linkedin-square.sec-text
+      i.fa.fa-facebook-square.pri-text
+      i.fa.fa-twitter-square.sec-darken-text
+      i.fa.fa-instagram.pri-darken-text
+
 
 </template>
 

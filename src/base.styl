@@ -120,10 +120,40 @@ button
   &.shade
     background-color: shade(_white, colorAngle)
 
-.blackText
+.pri-text
+  color: pri
+.pri-lighten-text
+  color: lighten(pri, colorAngle)
+.pri-darken-text
+  color:darken(pri, colorAngle)
+.pri-saturate-text
+  color: harmPri
+.pri-desaturate-text
+  color: neutralDesaturate(pri)
+.pri-tint-text
+  color: tint(pri, 50%)
+.pri-shade-text
+  color: shade(pri, 50%)
+
+.sec-text
+  color: sec
+.sec-lighten-text
+  color: lighten(sec, colorAngle)
+.sec-darken-text
+  color:darken(sec, colorAngle)
+.sec-saturate-text
+  color: harmSec
+.sec-desaturate-text
+  color: neutralDesaturate(sec)
+.sec-tint-text
+  color: tint(sec, 50%)
+.sec-shade-text
+  color: shade(sec, 50%)
+
+.black-text
   color: _black
 
-.whiteText
+.white-text
   color: _white
 
 .flex

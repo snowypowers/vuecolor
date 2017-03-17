@@ -1,8 +1,8 @@
 <template lang="pug">
-#footer.primary.shade.whiteText
-  p Made with VueJS
-  p Guidance from Some random page
-  p Made by snowypowers
+#footer.primary.shade.white-text
+  div
+    p Made with VueJS
+    p Made by snowypowers
 
 </template>
 
@@ -17,5 +17,6 @@ export default {
 </script>
 
 <style lang="stylus">
+
 
 </style>

@@ -1,6 +1,6 @@
 <template lang="pug">
 #app.primary.tint
-  #headerbar.primary.darken.whiteText
+  #headerbar.primary.darken.white-text
     button Palette
     button Test
     button Contact
