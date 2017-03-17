@@ -1,0 +1,155 @@
+@require 'functions'
+
+hue = 355
+colorAngle = 30%
+
+basePri = hsl(hue, 100, 50)
+baseSec = complement(basePri)
+
+_black = lighten(black, 17%)
+_white = darken(white, 5%)
+harmPri = harmonyMix(baseSec, basePri)
+harmSec = harmonyMix(basePri, baseSec)
+
+pri = neutralMix(harmPri)
+sec = neutralMix(harmSec)
+
+setFontColor(c)
+  if light(c)
+    return _black
+  else
+    return _white
+
+body
+  font-family: 'Avenir', Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  color: _black
+  font-size: 16px
+  margin: 0
+
+h1, h2, h3, h4, h5
+  margin-top: 16px
+  margin-bottom: 8px
+
+h1
+  font-size: 56px
+h2
+  font-size: 48px
+h3
+  font-size: 40px
+h4
+  font-size: 32px
+h5
+  font-size: 24px
+h6
+  font-size: 16px
+
+p
+  margin-bottom: 10px
+
+button
+  -webkit-transition-duration: 0.4s
+  transition-duration: 0.4s
+  background-color: inherit
+  color: inherit
+  border: none
+  text-align: center
+  text-decoration: none
+  display: inline-block
+  font-size: 16px
+  padding: 8px 16px
+  cursor: pointer
+  &.large
+    font-size: 32px
+    padding: 16px 32px
+  &:hover
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
+
+.primary
+  background-color: pri
+  &.lighten
+    background-color: lighten(pri, colorAngle)
+  &.darken
+    background-color: darken(pri, colorAngle)
+  &.saturate
+    background-color: harmPri
+  &.desaturate
+    background-color: neutralDesaturate(pri)
+  &.tint
+    background-color: tint(pri, 50%)
+  &.shade
+    background-color: shade(pri, 50%)
+
+.secondary
+  background-color: sec
+  &.lighten
+    background-color: lighten(sec, colorAngle)
+  &.darken
+    background-color: darken(sec, colorAngle)
+  &.saturate
+    background-color: harmSec
+  &.desaturate
+    background-color: neutralDesaturate(sec)
+  &.tint
+    background-color: tint(sec, 50%)
+  &.shade
+    background-color: shade(sec, 50%)
+
+.black
+  background-color: _black
+  color: _white
+  &.lighten
+    background-color: lighten(_black, 5%)
+  &.darken
+    background-color: darken(_black, 5%)
+  &.tint
+    background-color: tint(_black, 5%)
+  &.shade
+    background-color: shade(_black, 5%)
+
+.white
+  background-color: _white
+  color: _black
+  &.lighten
+    background-color: lighten(_white, colorAngle/2)
+  &.darken
+    background-color: darken(_white, colorAngle/2)
+  &.tint
+    background-color: tint(_white, colorAngle)
+  &.shade
+    background-color: shade(_white, colorAngle)
+
+.blackText
+  color: _black
+
+.whiteText
+  color: _white
+
+.flex
+  display: flex
+  flex-flow: row wrap
+  &.col
+    flex-flow: column wrap
+  &.center
+    align-items: center
+    justify-content: center
+
+.page
+  min-height: 95vh
+  width: 100%
+  padding-top: 3vh
+  padding-bottom: 7vh
+
+.section
+  width: 100%
+  padding-top: 3vh
+  padding-bottom: 7vh
+
+.content
+  width: 80%
+  height: 100%
+  margin: 16px auto
+  padding: 8px
+  background-color:_white
+  text-align: left

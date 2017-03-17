@@ -1,0 +1,63 @@
+
+isCool(c)
+  return hue(c) < 300 and hue(c) > 120
+
+isHighKey(c)
+  return hue(c) > 30 and hue(c) < 140
+
+isHighestKey(c)
+  return hue(c) > 30 and hue(c) < 90
+
+harmonyMix(a, b)
+  if isCool(a)
+    if isHighKey(b)
+      return mix(a,b, 11%)
+    else
+      return mix(a,b, 16%)
+  else
+    if isHighKey(b)
+      return mix(a,b, 13%)
+    else
+      return mix(a,b, 23%)
+
+neutralMix(a)
+  b = complement(a)
+  if isHighestKey(a)
+    if isHighKey(b)
+      return mix(b,a,19%)
+    else
+      return mix(b,a,13%)
+  else if isHighKey(a)
+    if isHighKey(b)
+      return mix(b,a,31%)
+    else
+      return mix(b,a,23%)
+  else
+    if isHighestKey(b)
+      return mix(b,a,31%)
+    else if isHighKey(b)
+      return mix(b,a,26%)
+    else
+      return mix(b,a,23%)
+
+neutralDesaturate(a)
+  b = complement(a)
+  if isHighestKey(a)
+    if isHighKey(b)
+      return desaturate(a, 19%)
+    else
+      return desaturate(a, 13%)
+  else if isHighKey(a)
+    if isHighKey(b)
+      return desaturate(a, 31%)
+    else
+      return desaturate(a, 23%)
+  else
+    if isHighestKey(b)
+      return desaturate(a, 31%)
+    else if isHighestKey(b)
+      return desaturate(a, 26%)
+    else
+      return desaturate(a, 23%)
+
+
