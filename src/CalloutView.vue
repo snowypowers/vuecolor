@@ -1,7 +1,7 @@
 <template lang="pug">
 .section.primary#callout
   h1 What are you waiting for?
-  button.large.callout Sign up now!
+  button.large.callout.secondary.lighten Sign up now!
 
 </template>
 
@@ -16,11 +16,5 @@ export default {
 </script>
 
 <style lang="stylus">
-@require 'base'
 
-.callout
-  background-color: harmSec
-  margin: 32px
-  &:hover
-    background-color: baseSec
 </style>

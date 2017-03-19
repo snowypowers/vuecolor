@@ -2,17 +2,34 @@
 #splash.primary.tint
   h1 Color My Life
   h4 A Color Playground for my life
+  Picker#picker(v-model='color' @change-color='onChange')
   .anchor-btm
     h5 Scroll down
 </template>
 
 <script>
+import { Chrome } from 'vue-color'
+import {genCSS, genPalette} from './generate.js'
 export default {
-  name: 'app',
+  name: 'Splash',
+  props: ['color'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    'Picker': Chrome
+  },
+  methods: {
+    onChange(val) {
+      console.log(val)
+      this.$parent.color = val
+      //this.palette = genPalette(this.color)
+      //document.styleSheets[document.styleSheets.length-1].disabled = true
+    }
+  },
+  mounted() {
+
   }
 }
 </script>
@@ -26,6 +43,8 @@ export default {
     font-size: 80px
     font-weight: 300
 
+#picker
+  margin: 50px auto
 .anchor-btm
   position:absolute
   bottom: 0px

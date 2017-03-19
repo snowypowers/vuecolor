@@ -3,11 +3,14 @@ var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    build: './src/main.js',
+    color: './src/colors.styl'
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -16,8 +19,8 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            css: ExtractTextPlugin.extract({
-              use: 'css-loader',
+            stylus: ExtractTextPlugin.extract({
+              use: 'css-loader!stylus-loader',
               fallback: 'vue-style-loader' // <- this is a dep of vue-loader, so no need to explicitly install if using npm3
             })
           }
@@ -35,6 +38,10 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract({use: "css-loader!stylus-loader"})
       }
     ]
   },
@@ -52,7 +59,7 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("[name].css")
   ]
 }
 

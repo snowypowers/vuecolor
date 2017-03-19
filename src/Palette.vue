@@ -3,8 +3,8 @@
   h1 Color Palette
   #samples
     .row
-      #basePri Base Primary
-      #baseSec Base Secondary
+      .primary.base Base Primary
+      .secondary.base Base Secondary
     .row
       #pri.primary Neutral Primary
       #sec.secondary Neutral Secondary
@@ -27,11 +27,21 @@
 </template>
 
 <script>
+import {genPalette} from './generate.js'
 export default {
   name: 'Palette',
+  props: ['color', 'palette'],
   data () {
     return {
     }
+  },
+  watch: {
+    color() {
+      this.$parent.palette = genPalette(this.color, 30)
+    }
+  },
+  mounted() {
+    this.$parent.palette = genPalette(this.color, 30)
   }
 }
 </script>

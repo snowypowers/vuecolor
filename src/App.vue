@@ -4,11 +4,11 @@
     button Palette
     button Test
     button Contact
-  Splash
-  Palette
+  Splash( :color="color")
+  Palette( :color="color", :palette="palette")
   ContentView
   CalloutView
-  Stylesheet
+  Stylesheet( :palette="palette")
   IconView
   FooterView
 </template>
@@ -21,10 +21,29 @@ import ContentView from './ContentView.vue'
 import CalloutView from './CalloutView.vue'
 import FooterView from './FooterView.vue'
 import IconView from './IconView.vue'
+
+import {attachPalette} from './generate.js'
 export default {
-  name: 'app',
+  name: 'App',
   data () {
     return {
+color:{
+  hex: '#FF0000',
+  hsl: {
+    h: 0,
+    s: 1,
+    l: 0.5,
+    a: 1
+  },
+  rgba: {
+    r: 255,
+    g: 0,
+    b: 0,
+    a: 1
+  },
+  a: 1
+},
+palette:{}
     }
   },
   components: {
@@ -35,6 +54,11 @@ export default {
     CalloutView,
     FooterView,
     IconView
+  },
+  watch: {
+    palette() {
+      attachPalette(this.palette)
+    }
   }
 }
 </script>
@@ -56,13 +80,6 @@ div
   > p
     display: inline
     margin: 0 8px
-
-
-#basePri
-  background-color: basePri
-
-#baseSec
-  background-color: baseSec
 
 #about
   padding: 40px 0

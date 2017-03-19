@@ -1,0 +1,78 @@
+@require 'functions'
+
+hue = 355
+colorAngle = 30%
+
+basePri = hsl(hue, 100, 50)
+baseSec = complement(basePri)
+
+
+harmPri = harmonyMix(baseSec, basePri)
+harmSec = harmonyMix(basePri, baseSec)
+
+pri = neutralMix(harmPri)
+sec = neutralMix(harmSec)
+
+.primary
+  background-color: pri
+  &.base
+    background-color: basePri
+  &.lighten
+    background-color: lighten(pri, colorAngle)
+  &.darken
+    background-color: darken(pri, colorAngle)
+  &.saturate
+    background-color: neutralSaturate(pri)
+  &.desaturate
+    background-color: neutralDesaturate(pri)
+  &.tint
+    background-color: tint(pri, 50%)
+  &.shade
+    background-color: shade(pri, 50%)
+
+.secondary
+  background-color: sec
+  &.base
+    background-color: baseSec
+  &.lighten
+    background-color: lighten(sec, colorAngle)
+  &.darken
+    background-color: darken(sec, colorAngle)
+  &.saturate
+    background-color: neutralSaturate(sec)
+  &.desaturate
+    background-color: neutralDesaturate(sec)
+  &.tint
+    background-color: tint(sec, 50%)
+  &.shade
+    background-color: shade(sec, 50%)
+
+.pri-text
+  color: pri
+.pri-lighten-text
+  color: lighten(pri, colorAngle)
+.pri-darken-text
+  color:darken(pri, colorAngle)
+.pri-saturate-text
+  color: harmPri
+.pri-desaturate-text
+  color: neutralDesaturate(pri)
+.pri-tint-text
+  color: tint(pri, 50%)
+.pri-shade-text
+  color: shade(pri, 50%)
+
+.sec-text
+  color: sec
+.sec-lighten-text
+  color: lighten(sec, colorAngle)
+.sec-darken-text
+  color:darken(sec, colorAngle)
+.sec-saturate-text
+  color: harmSec
+.sec-desaturate-text
+  color: neutralDesaturate(sec)
+.sec-tint-text
+  color: tint(sec, 50%)
+.sec-shade-text
+  color: shade(sec, 50%)

@@ -1,18 +1,7 @@
 @require 'functions'
 
-hue = 355
-colorAngle = 30%
-
-basePri = hsl(hue, 100, 50)
-baseSec = complement(basePri)
-
 _black = lighten(black, 17%)
 _white = darken(white, 5%)
-harmPri = harmonyMix(baseSec, basePri)
-harmSec = harmonyMix(basePri, baseSec)
-
-pri = neutralMix(harmPri)
-sec = neutralMix(harmSec)
 
 setFontColor(c)
   if light(c)
@@ -66,36 +55,6 @@ button
   &:hover
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)
 
-.primary
-  background-color: pri
-  &.lighten
-    background-color: lighten(pri, colorAngle)
-  &.darken
-    background-color: darken(pri, colorAngle)
-  &.saturate
-    background-color: harmPri
-  &.desaturate
-    background-color: neutralDesaturate(pri)
-  &.tint
-    background-color: tint(pri, 50%)
-  &.shade
-    background-color: shade(pri, 50%)
-
-.secondary
-  background-color: sec
-  &.lighten
-    background-color: lighten(sec, colorAngle)
-  &.darken
-    background-color: darken(sec, colorAngle)
-  &.saturate
-    background-color: harmSec
-  &.desaturate
-    background-color: neutralDesaturate(sec)
-  &.tint
-    background-color: tint(sec, 50%)
-  &.shade
-    background-color: shade(sec, 50%)
-
 .black
   background-color: _black
   color: _white
@@ -104,51 +63,21 @@ button
   &.darken
     background-color: darken(_black, 5%)
   &.tint
-    background-color: tint(_black, 5%)
+    background-color: tint(_black, 10%)
   &.shade
-    background-color: shade(_black, 5%)
+    background-color: shade(_black, 10%)
 
 .white
   background-color: _white
   color: _black
   &.lighten
-    background-color: lighten(_white, colorAngle/2)
+    background-color: lighten(_white, 5%)
   &.darken
-    background-color: darken(_white, colorAngle/2)
+    background-color: darken(_white, 5%)
   &.tint
-    background-color: tint(_white, colorAngle)
+    background-color: tint(_white, 10%)
   &.shade
-    background-color: shade(_white, colorAngle)
-
-.pri-text
-  color: pri
-.pri-lighten-text
-  color: lighten(pri, colorAngle)
-.pri-darken-text
-  color:darken(pri, colorAngle)
-.pri-saturate-text
-  color: harmPri
-.pri-desaturate-text
-  color: neutralDesaturate(pri)
-.pri-tint-text
-  color: tint(pri, 50%)
-.pri-shade-text
-  color: shade(pri, 50%)
-
-.sec-text
-  color: sec
-.sec-lighten-text
-  color: lighten(sec, colorAngle)
-.sec-darken-text
-  color:darken(sec, colorAngle)
-.sec-saturate-text
-  color: harmSec
-.sec-desaturate-text
-  color: neutralDesaturate(sec)
-.sec-tint-text
-  color: tint(sec, 50%)
-.sec-shade-text
-  color: shade(sec, 50%)
+    background-color: shade(_white, 10%)
 
 .black-text
   color: _black
@@ -183,3 +112,9 @@ button
   padding: 8px
   background-color:_white
   text-align: left
+
+.callout
+  background-color: harmSec
+  margin: 32px
+  &:hover
+    background-color: baseSec

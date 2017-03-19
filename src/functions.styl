@@ -60,4 +60,22 @@ neutralDesaturate(a)
     else
       return desaturate(a, 23%)
 
-
+neutralSaturate(a)
+  b = complement(a)
+  if isHighestKey(a)
+    if isHighKey(b)
+      return saturate(a, 19%)
+    else
+      return saturate(a, 13%)
+  else if isHighKey(a)
+    if isHighKey(b)
+      return saturate(a, 31%)
+    else
+      return saturate(a, 23%)
+  else
+    if isHighestKey(b)
+      return saturate(a, 31%)
+    else if isHighestKey(b)
+      return saturate(a, 26%)
+    else
+      return saturate(a, 23%)
