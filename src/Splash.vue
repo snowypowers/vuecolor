@@ -1,14 +1,17 @@
 <template lang="pug">
-#splash.primary.tint
+#splash.primary.tint.flex.col.center
   h1 Color My Life
-  h4 A Color Playground for my life
-  Picker#picker(v-model='color' @change-color='onChange')
+  h4 A color playground of complementary colors
+  .flex.col.center
+    .color-card.primary.base
+    .color-card.secondary.base(style="margin-top: -75px; margin-left: 50px;")
+  HueSlider( :color='color', @change-color='onChange')
   .anchor-btm
-    h5 Scroll down
+    h5 Pick your primary color and scroll down
 </template>
 
 <script>
-import { Chrome } from 'vue-color'
+import HueSlider from './HueSlider.vue'
 import {genCSS, genPalette} from './generate.js'
 export default {
   name: 'Splash',
@@ -18,14 +21,11 @@ export default {
     }
   },
   components: {
-    'Picker': Chrome
+    HueSlider
   },
   methods: {
     onChange(val) {
-      console.log(val)
       this.$parent.color = val
-      //this.palette = genPalette(this.color)
-      //document.styleSheets[document.styleSheets.length-1].disabled = true
     }
   },
   mounted() {

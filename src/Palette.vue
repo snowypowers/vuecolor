@@ -1,13 +1,16 @@
 <template lang="pug">
 .page#palette.white
   h1 Color Palette
-  #samples
+  .content#samples
     .row
       .primary.base Base Primary
       .secondary.base Base Secondary
     .row
-      #pri.primary Neutral Primary
-      #sec.secondary Neutral Secondary
+      .primary Primary
+      .secondary Secondary
+    .row
+      .primary.neutral Neutral Primary
+      .secondary.neutral Neutral Secondary
     .row
       .primary.saturate Saturate
       .primary.desaturate Desaturate
@@ -52,7 +55,6 @@ export default {
   flex-flow: column wrap
   align-items: center
   justify-content: center
-  width: 100%
   > .row
     display: flex
     flex-flow: row no-wrap

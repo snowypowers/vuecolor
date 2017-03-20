@@ -7,16 +7,14 @@ basePri = hsl(hue, 100, 50)
 baseSec = complement(basePri)
 
 
-harmPri = harmonyMix(baseSec, basePri)
-harmSec = harmonyMix(basePri, baseSec)
+pri = harmonyMix(baseSec, basePri)
+sec = harmonyMix(basePri, baseSec)
 
-pri = neutralMix(harmPri)
-sec = neutralMix(harmSec)
+neuPri = neutralMix(pri)
+neuSec = neutralMix(sec)
 
 .primary
   background-color: pri
-  &.base
-    background-color: basePri
   &.lighten
     background-color: lighten(pri, colorAngle)
   &.darken
@@ -29,11 +27,38 @@ sec = neutralMix(harmSec)
     background-color: tint(pri, 50%)
   &.shade
     background-color: shade(pri, 50%)
+  &.neutral
+    background-color: neuPri
+    &.lighten
+      background-color: lighten(@background-color, colorAngle)
+    &.darken
+      background-color: darken(@background-color, colorAngle)
+    &.saturate
+      background-color: neutralSaturate(@background-color)
+    &.desaturate
+      background-color: neutralDesaturate(@background-color)
+    &.tint
+      background-color: tint(@background-color, 50%)
+    &.shade
+      background-color: shade(@background-color, 50%)
+  &.base
+    background-color: basePri
+    &.lighten
+      background-color: lighten(@background-color, colorAngle)
+    &.darken
+      background-color: darken(@background-color, colorAngle)
+    &.saturate
+      background-color: neutralSaturate(@background-color)
+    &.desaturate
+      background-color: neutralDesaturate(@background-color)
+    &.tint
+      background-color: tint(@background-color, 50%)
+    &.shade
+      background-color: shade(@background-color, 50%)
 
 .secondary
   background-color: sec
-  &.base
-    background-color: baseSec
+
   &.lighten
     background-color: lighten(sec, colorAngle)
   &.darken
@@ -46,6 +71,34 @@ sec = neutralMix(harmSec)
     background-color: tint(sec, 50%)
   &.shade
     background-color: shade(sec, 50%)
+  &.neutral
+    background-color: neuSec
+    &.lighten
+      background-color: lighten(@background-color, colorAngle)
+    &.darken
+      background-color: darken(@background-color, colorAngle)
+    &.saturate
+      background-color: neutralSaturate(@background-color)
+    &.desaturate
+      background-color: neutralDesaturate(@background-color)
+    &.tint
+      background-color: tint(@background-color, 50%)
+    &.shade
+      background-color: shade(@background-color, 50%)
+  &.base
+    background-color: baseSec
+    &.lighten
+      background-color: lighten(@background-color, colorAngle)
+    &.darken
+      background-color: darken(@background-color, colorAngle)
+    &.saturate
+      background-color: neutralSaturate(@background-color)
+    &.desaturate
+      background-color: neutralDesaturate(@background-color)
+    &.tint
+      background-color: tint(@background-color, 50%)
+    &.shade
+      background-color: shade(@background-color, 50%)
 
 .pri-text
   color: pri
