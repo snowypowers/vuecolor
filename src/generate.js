@@ -20,7 +20,7 @@ const rgb2hex = function(r,g,b) {
   return "#" + colorHex(r) + colorHex(g) + colorHex(b)
 }
 
-const makeRGB = function (r, g, b) {
+export const makeRGB = function (r, g, b) {
   r = Math.round(r)
   g = Math.round(g)
   b = Math.round(b)
@@ -54,7 +54,7 @@ const makeRGB = function (r, g, b) {
   return { hsl: { h, s, l }, rgba: { r, g, b }, hex }
 }
 
-const makeHSL = function (h, s, l) {
+export const makeHSL = function (h, s, l) {
   h /=360
   s = clamp(s, 0, 1)
   l = clamp(l, 0, 1)
@@ -199,53 +199,42 @@ const neutralSaturate = function(c) {
   }
 }
 
+const genColorMods = function(c, p, name) {
+  let pal = {}
+  pal[name+'-lighten'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * (1+p))
+  pal[name+'-darken'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * (1-p))
+  pal[name+'-saturate'] = neutralSaturate(c)
+  pal[name+'-desaturate'] = neutralDesaturate(c)
+  pal[name+'-tint'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * 1.5)
+  pal[name+'-shade'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * 0.5)
+  return pal
+}
 export const genPalette = function (c, colorAngle) {
   let p = colorAngle / 100
   let palette = {}
   let comp = colorComplement(c)
-  palette.basePri = c
-  palette.baseSec = comp
-  palette.harmPri = harmonyMix(comp, c)
-  palette.harmSec = harmonyMix(c, comp)
-  palette.pri = neutralMix(palette.harmPri)
-  palette.sec = neutralMix(palette.harmSec)
-  palette['pri-base'] = palette.basePri
-  palette['pri-lighten'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * (1+p))
-  palette['pri-darken'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * (1-p))
-  palette['pri-saturate'] = neutralSaturate(c)
-  palette['pri-desaturate'] = neutralDesaturate(c)
-  palette['pri-tint'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * 1.5)
-  palette['pri-shade'] = makeHSL(c.hsl.h, c.hsl.s, c.hsl.l * 0.5)
+  palette['primary-base'] = c
+  palette['secondary-base'] = comp
+  palette.primary = harmonyMix(comp, c)
+  palette.secondary = harmonyMix(c, comp)
+  palette['primary-neutral'] = neutralMix(palette.primary)
+  palette['secondary-neutral'] = neutralMix(palette.secondary)
+  let mods = Object.keys(palette).map((key, index)=> {
+    return genColorMods(palette[key], p, key)
+  })
+  return Object.assign(palette, ...mods)
+}
 
-  palette['sec-base'] = palette.baseSec
-  palette['sec-lighten'] = makeHSL(comp.hsl.h, comp.hsl.s, comp.hsl.l * (1+p))
-  palette['sec-darken'] = makeHSL(comp.hsl.h, comp.hsl.s, comp.hsl.l * (1-p))
-  palette['sec-saturate'] = neutralSaturate(comp)
-  palette['sec-desaturate'] = neutralDesaturate(comp)
-  palette['sec-tint'] = makeHSL(comp.hsl.h, comp.hsl.s, comp.hsl.l * 1.5)
-  palette['sec-shade'] = makeHSL(comp.hsl.h, comp.hsl.s, comp.hsl.l * 0.5)
-  return palette
+const makeColorRule = function(key, hex) {
+  let selector = "." + key.split('-').join('.')
+  return `${selector} {background-color: ${hex}}`
 }
 
 export const genCSS = function (c) {
-  return `
-.primary {background-color: ${c['pri'].hex}}
-.primary.base {background-color: ${c['pri-base'].hex}}
-.primary.lighten {background-color: ${c['pri-lighten'].hex}}
-.primary.darken {background-color: ${c['pri-darken'].hex}}
-.primary.saturate {background-color: ${c['pri-saturate'].hex}}
-.primary.desaturate {background-color: ${c['pri-desaturate'].hex}}
-.primary.tint {background-color: ${c['pri-tint'].hex}}
-.primary.shade {background-color: ${c['pri-shade'].hex}}
-
-.secondary {background-color: ${c['sec'].hex}}
-.secondary.base {background-color: ${c['sec-base'].hex}}
-.secondary.lighten {background-color: ${c['sec-lighten'].hex}}
-.secondary.darken {background-color: ${c['sec-darken'].hex}}
-.secondary.saturate {background-color: ${c['sec-saturate'].hex}}
-.secondary.desaturate {background-color: ${c['sec-desaturate'].hex}}
-.secondary.tint {background-color: ${c['sec-tint'].hex}}
-.secondary.shade {background-color: ${c['sec-shade'].hex}}
+  let rules = Object.keys(c).map((key, val)=> {
+    return makeColorRule(key, c[key].hex)
+  })
+  return rules.join("\n") + `
 
 .black {
   background-color: #2b2b2b;
@@ -265,21 +254,21 @@ export const genCSS = function (c) {
 .white.tint {background-color: #f5f5f5}
 .white.shade {background-color: #a9a9a9}
 
-.pri-text {color: ${c['pri'].hex}}
-.pri-lighten-text {color: ${c['pri-lighten'].hex}}
-.pri-darken-text {color: ${c['pri-darken'].hex}}
-.pri-saturate-text {color: ${c['pri-saturate'].hex}}
-.pri-desaturate-text {color: ${c['pri-desaturate'].hex}}
-.pri-tint-text {color: ${c['pri-tint'].hex}}
-.pri-shade-text {color: ${c['pri-shade'].hex}}
+.primary-text {color: ${c['primary'].hex}}
+.primary-lighten-text {color: ${c['primary-lighten'].hex}}
+.primary-darken-text {color: ${c['primary-darken'].hex}}
+.primary-saturate-text {color: ${c['primary-saturate'].hex}}
+.primary-desaturate-text {color: ${c['primary-desaturate'].hex}}
+.primary-tint-text {color: ${c['primary-tint'].hex}}
+.primary-shade-text {color: ${c['primary-shade'].hex}}
 
-.sec-text {color: ${c['sec'].hex}}
-.sec-lighten-text {color: ${c['sec-lighten'].hex}}
-.sec-darken-text {color: ${c['sec-darken'].hex}}
-.sec-saturate-text {color: ${c['sec-saturate'].hex}}
-.sec-desaturate-text {color: ${c['sec-desaturate'].hex}}
-.sec-tint-text {color: ${c['sec-tint'].hex}}
-.sec-shade-text {color: ${c['sec-shade'].hex}}
+.secondary-text {color: ${c['secondary'].hex}}
+.secondary-lighten-text {color: ${c['secondary-lighten'].hex}}
+.secondary-darken-text {color: ${c['secondary-darken'].hex}}
+.secondary-saturate-text {color: ${c['secondary-saturate'].hex}}
+.secondary-desaturate-text {color: ${c['secondary-desaturate'].hex}}
+.secondary-tint-text {color: ${c['secondary-tint'].hex}}
+.secondary-shade-text {color: ${c['secondary-shade'].hex}}
 
 .black-text {color: #2b2b2b}
 

@@ -4,12 +4,10 @@
     .icons-container.flex.center
       i.fa.fa-github-square
       i.fa.fa-gitlab.white-text
-      i.fa.fa-linkedin-square.sec-text
-      i.fa.fa-facebook-square.pri-text
-      i.fa.fa-twitter-square.sec-darken-text
-      i.fa.fa-instagram.pri-darken-text
-
-
+      i.fa.fa-linkedin-square.secondary-text
+      i.fa.fa-facebook-square.primary-text
+      i.fa.fa-twitter-square.secondary-darken-text
+      i.fa.fa-instagram.primary-darken-text
 </template>
 
 <script>

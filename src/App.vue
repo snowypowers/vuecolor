@@ -1,6 +1,6 @@
 <template lang="pug">
 #app.primary.tint
-  #headerbar.primary.darken.white-text
+  #headerbar.primary.darken.white-text.flex
     button Palette
     button Test
     button Contact
@@ -70,11 +70,17 @@ div
   width: 100%
   overflow: hidden
 
+.color-card
+  width: 100px
+  height: 100px
+
+
 #app
   text-align: center
   color: _black
 
 #headerbar
+  flex-direction: row-reverse
   height: 5vh
   text-align: end
   > p
